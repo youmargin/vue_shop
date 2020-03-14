@@ -14,33 +14,20 @@
                         class="el-menu-vertical-demo"
                         background-color="#545c64"
                         text-color="#fff"
-                        active-text-color="#ffd04b">
+                        active-text-color="#409EFF">
                     <!--  一级菜单-->
-                    <el-submenu index="1">
+                    <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span>导航一</span>
+                            <i :class="iconsObj[item.id]"></i>
+                            <span>{{item.authName}}</span>
                         </template>
                         <!--  二级菜单-->
-                        <el-menu-item index="1-1">
-                            <i class="el-icon-apple"></i>选项1
-                        </el-menu-item>
-                        <el-menu-item index="1-2">
-                            <i class="el-icon-bell"></i>选项2
+                        <el-menu-item :index="subItem.id+''" v-for="subItem in item.children"
+                                      :key="subItem.id">
+                            <i class="el-icon-menu"></i>{{subItem.authName}}
                         </el-menu-item>
                     </el-submenu>
-                    <el-menu-item index="2">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">导航二</span>
-                    </el-menu-item>
-                    <el-menu-item index="3" disabled>
-                        <i class="el-icon-document"></i>
-                        <span slot="title">导航三</span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">导航四</span>
-                    </el-menu-item>
+
                 </el-menu>
             </el-aside>
             <el-main>min</el-main>
@@ -52,13 +39,35 @@
     export default {
         name: "Home",
         data() {
-
+            return {
+                //定义菜单列表，从json中解析
+                menuList: [],
+                iconsObj: {
+                    '125': 'iconfont icon-user',
+                    '103': 'iconfont icon-tijikongjian',
+                    '101': 'iconfont icon-shangpin',
+                    '102': 'iconfont icon-danju',
+                    '145': 'iconfont icon-baobiao'
+                }
+            }
+        },
+        //生命周期函数，页面加载后自动调用
+        created() {
+            this.getMenuList()
+            this.activePath = window.sessionStorage.getItem('activePath')
         },
         methods: {
             //退出系统，清除
             logout() {
                 window.sessionStorage.clear()
                 this.$router.push('/login')
+            },
+            // 获取所有的菜单
+            async getMenuList() {
+                const {data: res} = await this.$http.get('menus');
+                if (res.meta.status !== 200) return this.$message.error(res.meta.msg);
+                this.menulist = res.data;
+                console.log(res);
             },
         }
     }
