@@ -55,7 +55,6 @@
             resetLoginForm() {
                 // console.log(this);
                 this.$refs.loginFormRef.resetFields();
-
             },
             login() {
                 this.$refs.loginFormRef.validate(async valid => {

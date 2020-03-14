@@ -13,7 +13,6 @@ const router = new Router({
     ]
 })
 
-/*
 // 挂载路由导航守卫
 router.beforeEach((to, from, next) => {
     // to 将要访问的路径
@@ -27,5 +26,4 @@ router.beforeEach((to, from, next) => {
     if (!tokenStr) return next('/login')
     next()
 })
-*/
 export default router
