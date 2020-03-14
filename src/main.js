@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router.js'
-// import './plugins/element.js'
+import ElementUI from 'element-ui';
+
 // 导入字体图标
-// import './assets/fonts/iconfont.css'
+import './assets/fonts/iconfont.css'
 // 导入全局样式表
 import './assets/css/global.css'
+import 'element-ui/lib/theme-chalk/index.css';
 
 // import axios from 'axios'
 // 配置请求的跟路径
@@ -13,6 +15,8 @@ import './assets/css/global.css'
 // Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
+
+Vue.use(ElementUI);
 
 new Vue({
   router,
