@@ -14,7 +14,10 @@
                         class="el-menu-vertical-demo"
                         background-color="#545c64"
                         text-color="#fff"
-                        active-text-color="#409EFF">
+                        active-text-color="#409EFF"
+                        :unique-opened="true"
+                        :router="true"
+                >
                     <!--  一级菜单-->
                     <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
                         <template slot="title">
@@ -22,7 +25,7 @@
                             <span>{{item.authName}}</span>
                         </template>
                         <!--  二级菜单-->
-                        <el-menu-item :index="subItem.id+''" v-for="subItem in item.children"
+                        <el-menu-item :index="'/'+subItem.path" v-for="subItem in item.children"
                                       :key="subItem.id">
                             <i class="el-icon-menu"></i>{{subItem.authName}}
                         </el-menu-item>
@@ -30,18 +33,20 @@
 
                 </el-menu>
             </el-aside>
-            <el-main>min</el-main>
+            <el-main>
+                <!-- 路由占位符 -->
+                <router-view></router-view>
+            </el-main>
         </el-container>
     </el-container>
 </template>
 
 <script>
     export default {
-        name: "Home",
         data() {
             return {
-                //定义菜单列表，从json中解析
-                menuList: [],
+                // 左侧菜单数据
+                menulist: [],
                 iconsObj: {
                     '125': 'iconfont icon-user',
                     '103': 'iconfont icon-tijikongjian',
