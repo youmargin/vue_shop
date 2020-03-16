@@ -17,6 +17,7 @@
                         active-text-color="#409EFF"
                         :unique-opened="true"
                         :router="true"
+                        :default-active="$route.path"
                 >
                     <!--  一级菜单-->
                     <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
@@ -53,7 +54,7 @@
                     '101': 'iconfont icon-shangpin',
                     '102': 'iconfont icon-danju',
                     '145': 'iconfont icon-baobiao'
-                }
+                },
             }
         },
         //生命周期函数，页面加载后自动调用
